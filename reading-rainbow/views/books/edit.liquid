@@ -1,0 +1,46 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-sm">
+    <form action="/books" method="POST">
+        <fieldset>
+            <legend>Create New Book</legend>
+            <label class="form-label">Title: </label>
+            <input 
+                type="text" 
+                name="title" 
+                placeholder="{{ book.title }}"
+                value="{{ book.title }}"
+                class="form-control"
+            >
+            <label class="form-label">Author:</label>
+            <input 
+                type="text" 
+                name="author" 
+                placeholder="{{ book.author }}" 
+                value="{{ book.author }}" 
+                class="form-control"
+            >
+            <label class="form-label">Pages:</label>
+            <input 
+                type="number" 
+                name="pages"
+                value="{{ book.pages }}"
+                class="form-control"
+            >
+            <label class="form-label">Genre:</label>
+            <input 
+                type="text" 
+                name="genre" 
+                class="form-control"
+            >
+             <label class="form-label">IBSN:</label>
+            <input 
+                type="text" 
+                name="ibsn" 
+                class="form-control"
+            >
+        </fieldset>
+        <input type="submit" value="Edit Book" class="btn btn-success">
+    </form>
+</div>
+{% endblock %}
