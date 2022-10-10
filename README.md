@@ -22,6 +22,7 @@ OR
     author: String,
     pages: Number,
     genre: String,
+    owned: Boolean,
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -32,12 +33,14 @@ OR
 const reviewSchema = new Schema({
     rating: {
         type: Number,
-        required: true,
         enum: [1, 2, 3, 4, 5]
     },
     review: {
         type: String,
-        required: true
+    },
+    readDate: {
+      type: Date,
+      required: true
     },
     author: {
         type: Schema.Types.ObjectId,
