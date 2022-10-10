@@ -6,14 +6,14 @@ Reading Rainbow is an app inspired my own love of reading and is meant to harken
 
 TECHNOLOGIES USED
 ------------------
-HTML5
-CSS
-Javascript
-Express
-Liquid
-Mongoose
-API (Open Library)
-  - (https://openlibrary.org/books/)
+  -HTML5
+  -CSS
+  -Javascript
+  -Express
+  -Liquid
+  -Mongoose
+  -API (Open Library)
+    - (https://openlibrary.org/books/)
 
 OR
 
