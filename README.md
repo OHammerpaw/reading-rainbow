@@ -89,9 +89,10 @@ ERDs
 
 SCHEDULE
 ------------------
-
-M-T : working on backend json functionality
-W-Th : Make it look pretty
-F : Polish
+  - Monday: get approval, download boilerplate, edit boilerplate and add schemas for reviews
+  - Tuesday: build bones of routes, refer back to projects
+  - Wednesday: polish routes, fix whatever routes aren't working
+  - Thursday: work on liquid view
+  - Friday: work on liquid view
 
 
