@@ -12,6 +12,9 @@ Javascript
 Express
 Liquid
 Mongoose
+API (Open Library)
+  - (https://openlibrary.org/books/)
+
 
 USER STORIES
 -----------------
@@ -40,10 +43,18 @@ WIREFRAMES
 ![image](https://user-images.githubusercontent.com/112446901/194789087-4467668e-e84d-4d79-8567-a3c4f41b7296.png)
 ![image](https://user-images.githubusercontent.com/112446901/194789099-0c1cf93e-2c67-4d65-9cc7-00739596d7d3.png)
 
+
 ERDs
 ----------------
 
 ![image](https://user-images.githubusercontent.com/112446901/194789546-a5aa63a6-e5c5-4552-ae69-f14204389da5.png)
 ![image](https://user-images.githubusercontent.com/112446901/194790163-696dc3e4-2c78-4d97-9592-85a43e554c2a.png)
+
+SCHEDULE
+------------------
+
+M-T : working on backend json functionality
+W-Th : Make it look pretty
+F : Polish
 
 
