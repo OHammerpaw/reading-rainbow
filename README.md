@@ -15,6 +15,40 @@ Mongoose
 API (Open Library)
   - (https://openlibrary.org/books/)
 
+OR
+
+```const BookSchema = new Schema({
+    title: String,
+    author: String,
+    pages: Number,
+    genre: String,
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    review: [reviewSchema]
+
+}
+const reviewSchema = new Schema({
+    rating: {
+        type: Number,
+        required: true,
+        enum: [1, 2, 3, 4, 5]
+    },
+    review: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
+}, {
+    timestamps: true
+})
+```
+
 
 USER STORIES
 -----------------
