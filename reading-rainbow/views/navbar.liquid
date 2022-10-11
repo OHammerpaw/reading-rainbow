@@ -10,6 +10,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if loggedIn %}
+                <form>
+                    <div class=”search-box”>
+                        <input type=”text” name="volumeInfo" id="volumeInfo" placeholder="Find a book">
+                        <button class=”search-btn” type=”submit”>Search</button>
+                    </div>
+                </form>
                 <a href="/books" class="nav-link text-light">View All</a>
                 <a href="/books/new" class="nav-link text-light">New</a>
                 <a href="/books/mine" class="nav-link text-light">My Shelves</a>

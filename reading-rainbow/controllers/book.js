@@ -26,7 +26,7 @@ router.use((req, res, next) => {
 
 // index ALL
 router.get('/', (req, res) => {
-	axios('https://www.googleapis.com/books/v1/volumes?q=search-terms&key=AIzaSyAmGnEcurXJIYeu6gHRgBAToIhCORD39Wk')
+	axios(`https://www.googleapis.com/books/v1/volumes?q=tolkien&key=AIzaSyAmGnEcurXJIYeu6gHRgBAToIhCORD39Wk`)
 	// Book.find({})
 		// .then((res) => res.json())
 		// .then((data) => {
@@ -36,17 +36,38 @@ router.get('/', (req, res) => {
   		// })
 		// .polpulate()
 
-		.then(books => {
+		.then(apiRes => {
+			const books = apiRes.data.items
 			const username = req.session.username
 			const loggedIn = req.session.loggedIn
+			console.log(books)
 			
-			// res.render(books.data)
+			// res.render('books/index', books.data)
 			res.render('books/index', { books, username, loggedIn })
+			
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
 		})
 })
+
+// route to show results of book search
+router.get('/', (req, res) => {
+	// let searchTerm = document.getElementById('volumeInfo').value
+
+	axios(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=AIzaSyAmGnEcurXJIYeu6gHRgBAToIhCORD39Wk`)
+
+		.then((res) => res.json())
+		.then(books => {
+			createBookCards(books)
+			filteredBooks = books
+		})
+		.catch(error => {
+			res.redirect(`/error?error=${error}`)
+		})
+})
+// const bookSearch = document.getElementById('volumeInfo').value
+// let filteredBooks= []
 
 // index that shows only the user's books
 router.get('/mine', (req, res) => {
