@@ -3,9 +3,9 @@
 <div class="container-md">
     <article>
         <h1>Title: {{book.title}} </h1>
-        <h2>Author: {{ book.author }}</h2>
-        <h4>Pages: {{book.pages}} </h4>
-        <h6>Genre: {{ book.genre }}</h6>
+        <h2>Author: {{ book.authors }}</h2>
+        <h4>Pages: {{book.pageCount}} </h4>
+        <p>Description: {{ book.description }}</p>
         <h8>IBSN: {{ book.ibsn }}</h8>
         {% if book.owner == userId %}
         <div class="btn-group">

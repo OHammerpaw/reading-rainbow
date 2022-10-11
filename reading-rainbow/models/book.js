@@ -7,16 +7,30 @@ const User = require('./user')
 // destructure the schema and model constructors from mongoose
 const { Schema, model } = mongoose
 
+// const bookSchema = new Schema(
+// 	{
+// 		title: { type: String, required: true },
+// 		author: { type: String, required: true },
+//         pages: { type: Number, required: true },
+// 		genre: { type: String, required: true },
+// 		ibsn: { type: String, required: true },
+// 		},
+		
+// 	{ timestamps: true }
+// )
+
 const bookSchema = new Schema(
 	{
-		title: { type: String, required: true },
-		author: { type: String, required: true },
-        pages: { type: Number, required: true },
-		genre: { type: String, required: true },
-		ibsn: { type: String, required: true },
-		},
-		
-	{ timestamps: true }
+		items: {
+			volumeInfo: {
+				title: {type: String, required: true},
+				subtitle: {type: String},
+				authors: {type: String, required: true},
+				description: {type: String, required: true},
+				pageCount: {type: Number, required: true},
+			}
+		}
+	}
 )
 
 const Book = model('Book', bookSchema)

@@ -1,6 +1,7 @@
 // Import Dependencies
 const express = require('express')
 const Book = require('../models/book')
+const axios = require('axios')
 
 // Create router
 const router = express.Router()
@@ -21,13 +22,25 @@ router.use((req, res, next) => {
 
 // Routes
 
+
+
 // index ALL
 router.get('/', (req, res) => {
-	Book.find({})
+	axios('https://www.googleapis.com/books/v1/volumes?q=search-terms&key=AIzaSyAmGnEcurXJIYeu6gHRgBAToIhCORD39Wk')
+	// Book.find({})
+		// .then((res) => res.json())
+		// .then((data) => {
+		// 	let output = data.items.forEach(book => {
+
+		// 	})
+  		// })
+		// .polpulate()
+
 		.then(books => {
 			const username = req.session.username
 			const loggedIn = req.session.loggedIn
 			
+			// res.render(books.data)
 			res.render('books/index', { books, username, loggedIn })
 		})
 		.catch(error => {
@@ -41,6 +54,7 @@ router.get('/mine', (req, res) => {
     const { username, userId, loggedIn } = req.session
 	Book.find({ owner: userId })
 		.then(books => {
+
 			res.render('books/index', { books, username, loggedIn })
 		})
 		.catch(error => {
