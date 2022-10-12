@@ -2,10 +2,12 @@
 {% block content %}
 <div class="container-md">
     <article>
-        <h1>Title: {{book.title}} </h1>
-        <h2>Author: {{ book.authors }}</h2>
-        <h4>Pages: {{book.pageCount}} </h4>
-        <p>Description: {{ book.description }}</p>
+        <h1> {{book.title }} </h1>
+        <h2> {{ book.subtitle }}</h2>
+        <h3> {{ book.authors }}</h3>
+        <h4> {{book.pageCount}} pages </h4>
+        <h4> {{book.genre}}</h4>
+        <p> {{ book.description }}</p>
         <h8>IBSN: {{ book.ibsn }}</h8>
         {% if book.owner == userId %}
         <div class="btn-group">

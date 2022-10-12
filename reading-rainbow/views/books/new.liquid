@@ -1,7 +1,7 @@
 {% layout 'layout.liquid' %}
 {% block content %}
 <div class="container-sm">
-    <form action="/books" method="POST">
+    <form action="/books/new" method="POST">
         <fieldset>
             <legend>Create New Book</legend>
             <label class="form-label">Title: </label>
@@ -9,34 +9,49 @@
                 type="text" 
                 name="title" 
                 placeholder="enter book title"
+                value="{{ book.volumeInfo.title }}"
                 class="form-control"
             >
-            <label class="form-label">Author:</label>
+            <label class="form-label">Subtitle:</label>
             <input 
                 type="text" 
-                name="author" 
-                placeholder="enter author" 
+                name="subtitle" 
+                placeholder="enter book subtitle" 
+                value="{{ book.volumeInfo.subtitle }}"
                 class="form-control"
             >
-            <label class="form-label">Genre:</label>
+            <label class="form-label">Author(s):</label>
             <input 
                 type="text" 
-                name="genre"
-                placeholder="enter book genre(s)" 
+                name="authors"
+                placeholder="enter author(s)" 
+                value="{{ book.volumeInfo.authors }}"
                 class="form-control"
             >
             <label class="form-label">Pages:</label>
             <input 
                 type="number" 
-                name="pages" 
+                name="pageCount" 
+                placeholder="enter page count"
+                value="{{ book.volumeInfo.pageCount }}"
                 class="form-control"
             >
+            <label class="form-label">Description:</label>
+             <input 
+                type="text" 
+                name="description"
+                placeholder="enter book description" 
+                value="{{ book.volumeInfo.description }}"
+                class="form-control"
+            >
+              {%- comment -%} <label class="form-label">IBSN:</label>
              <input 
                 type="text" 
                 name="ibsn"
-                placeholder="enter book IBSN" 
+                placeholder="enter book ibsn" 
+                value="{{ book.volumeInfo.ibsn }}"
                 class="form-control"
-            >
+            > {%- endcomment -%}
         </fieldset>
         <input type="submit" value="Create New Book" class="btn btn-success">
     </form>

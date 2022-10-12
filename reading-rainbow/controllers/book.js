@@ -1,7 +1,7 @@
 // Import Dependencies
 const express = require('express')
 const Book = require('../models/book')
-const axios = require('axios')
+
 
 // Create router
 const router = express.Router()
@@ -20,14 +20,26 @@ router.use((req, res, next) => {
 	}
 })
 
-// Routes
+///////////////////////
+/// Routes
+///////////////////////
 
 
 
-// index ALL
+// INDEX ALL BOOKS
+
 router.get('/', (req, res) => {
-	axios(`https://www.googleapis.com/books/v1/volumes?q=tolkien&key=AIzaSyAmGnEcurXJIYeu6gHRgBAToIhCORD39Wk`)
-	// Book.find({})
+	
+	Book.find({})
+		.then(books => {
+			const username = req.session.username
+			const loggedIn = req.session.loggedIn
+			const userId = req.session.userId
+
+			res.render('books/index', { books, username, loggedIn, userId })
+		})
+		.catch(err => res.redirect(`/error?error=${err}`))
+	
 		// .then((res) => res.json())
 		// .then((data) => {
 		// 	let output = data.items.forEach(book => {
@@ -36,46 +48,48 @@ router.get('/', (req, res) => {
   		// })
 		// .polpulate()
 
-		.then(apiRes => {
-			const books = apiRes.data.items
-			const username = req.session.username
-			const loggedIn = req.session.loggedIn
-			console.log(books)
+		// .then(library => {
+		// 	const books = library.data.items
+		// 	const username = req.session.username
+		// 	const loggedIn = req.session.loggedIn
+		// 	// console.log(books)
 			
-			// res.render('books/index', books.data)
-			res.render('books/index', { books, username, loggedIn })
+		// 	// res.render('books/index', books.data)
+		// 	res.render('books/index', { books, username, loggedIn })
 			
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
+		// })
+		// .catch(error => {
+		// 	res.redirect(`/error?error=${error}`)
+		// })
 })
 
-// route to show results of book search
-router.get('/', (req, res) => {
-	// let searchTerm = document.getElementById('volumeInfo').value
+// ROUTE TO SHOW RESULTS OF BOOK SEARCH
 
-	axios(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=AIzaSyAmGnEcurXJIYeu6gHRgBAToIhCORD39Wk`)
+// router.get('/', (req, res) => {
+// 	// let searchTerm = document.getElementById('volumeInfo').value
 
-		.then((res) => res.json())
-		.then(books => {
-			createBookCards(books)
-			filteredBooks = books
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+// 	axios(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}.json`)
+
+// 		.then((res) => res.json())
+// 		.then(books => {
+// 			createBookCards(books)
+// 			filteredBooks = books
+// 		})
+// 		.catch(error => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
+// })
 // const bookSearch = document.getElementById('volumeInfo').value
 // let filteredBooks= []
 
-// index that shows only the user's books
+//INDEX TO SHOW INDIVIDUAL USER'S BOOKS
+
 router.get('/mine', (req, res) => {
     // destructure user info from req.session
-    const { username, userId, loggedIn } = req.session
+	const { username, userId, loggedIn } = req.session
 	Book.find({ owner: userId })
 		.then(books => {
-
+			
 			res.render('books/index', { books, username, loggedIn })
 		})
 		.catch(error => {
@@ -84,19 +98,21 @@ router.get('/mine', (req, res) => {
 })
 
 // new route -> GET route that renders our page with the form
+
 router.get('/new', (req, res) => {
 	const { username, userId, loggedIn } = req.session
-	res.render('books/new', { username, loggedIn })
+	res.render('books/new', { username, loggedIn, userId })
 })
 
 // create -> POST route that actually calls the db and makes a new document
-router.post('/', (req, res) => {
-	req.body.ready = req.body.ready === 'on' ? true : false
 
+router.post('/', (req, res) => {
+	
 	req.body.owner = req.session.userId
 	Book.create(req.body)
 		.then(book => {
-			console.log('this was returned from create', book)
+			const { username, userId, loggedIn } = req.session
+			// console.log('this was returned from create', book)
 			res.redirect('/books')
 		})
 		.catch(error => {
@@ -105,12 +121,15 @@ router.post('/', (req, res) => {
 })
 
 // edit route -> GET that takes us to the edit form view
-router.get('/:id/edit', (req, res) => {
+
+router.get('/edit/:id', (req, res) => {
 	// we need to get the id
+	const { username, userId, loggedIn } = req.session
 	const bookId = req.params.id
+
 	Book.findById(bookId)
 		.then(book => {
-			res.render('books/edit', { book })
+			res.render('books/edit', { book, username, loggedIn, userId })
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)
@@ -119,11 +138,18 @@ router.get('/:id/edit', (req, res) => {
 
 // update route
 router.put('/:id', (req, res) => {
-	const bookId = req.params.id
-	req.body.ready = req.body.ready === 'on' ? true : false
+	const id = req.params.id
+	
 
 	Book.findByIdAndUpdate(bookId, req.body, { new: true })
 		.then(book => {
+			if (book.owner == req.session.userId) {
+				return book.updayeone(req.body)
+			} else {
+				res.sendStatus(401)
+			}
+		})
+		.then(() => {
 			res.redirect(`/books/${book.id}`)
 		})
 		.catch((error) => {
@@ -133,16 +159,32 @@ router.put('/:id', (req, res) => {
 
 // show route
 router.get('/:id', (req, res) => {
-	const bookId = req.params.id
-	Book.findById(bookId)
-		.then(book => {
-            const {username, loggedIn, userId} = req.session
-			res.render('books/show', { book, username, loggedIn, userId })
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
+	const id = req.params.id
+	
+	Book.findById(id)
+
+	// .populate("review.author", "username")
+	.then(book => {
+		const { username, userId, loggedIn } = req.session
+		res.render('books/show', { book, username, loggedIn, userId })
+	})
+	.catch(err => res.redirect(`/error?error=${err}`))
 })
+
+	// const bookTitle = req.params.title
+
+	// Book.findById(bookId)
+		// .then(library => {
+		// 	console.log(library)
+		// 	const books = library.data.items
+        //     const {username, loggedIn, userId} = req.session
+		// 	res.render('books/show', { book:singleBook, username, loggedIn, userId })
+		// })
+		// .catch((error) => {
+		// 	res.redirect(`/error?error=${error}`)
+		// })
+		
+// })
 
 // delete route
 router.delete('/:id', (req, res) => {

@@ -3,42 +3,51 @@
 <div class="container-sm">
     <form action="/books" method="POST">
         <fieldset>
-            <legend>Create New Book</legend>
+            <legend>Edit {{ book.volumeInfo.title }}</legend>
             <label class="form-label">Title: </label>
             <input 
                 type="text" 
                 name="title" 
-                placeholder="{{ book.title }}"
-                value="{{ book.title }}"
+                placeholder="{{ book.volumeInfo.title }}"
+                value="{{ book.volumeInfo.title }}"
                 class="form-control"
             >
-            <label class="form-label">Author:</label>
+              <label class="form-label">Subtitle: </label>
             <input 
                 type="text" 
-                name="author" 
-                placeholder="{{ book.author }}" 
-                value="{{ book.author }}" 
+                name="subtitle" 
+                placeholder="{{ book.volumeInfo.subtitle }}"
+                value="{{ book.volumeInfo.subtitle }}"
+                class="form-control"
+            >
+            <label class="form-label">Author(s):</label>
+            <input 
+                type="text" 
+                name="authors" 
+                placeholder="{{ book.volumeInfo.authors }}" 
+                value="{{ book.volumeInfo.authors }}" 
                 class="form-control"
             >
             <label class="form-label">Pages:</label>
             <input 
                 type="number" 
-                name="pages"
-                value="{{ book.pages }}"
+                name="pageCount"
+                value="{{ book.volumeInfo.pageCount }}"
                 class="form-control"
             >
-            <label class="form-label">Genre:</label>
+            <label class="form-label">Description:</label>
             <input 
                 type="text" 
-                name="genre" 
+                name="description" 
+                value="{{book.volumeInfo.description }}"
                 class="form-control"
             >
-             <label class="form-label">IBSN:</label>
+             {%- comment -%} <label class="form-label">IBSN:</label>
             <input 
                 type="text" 
                 name="ibsn" 
                 class="form-control"
-            >
+            > {%- endcomment -%}
         </fieldset>
         <input type="submit" value="Edit Book" class="btn btn-success">
     </form>
