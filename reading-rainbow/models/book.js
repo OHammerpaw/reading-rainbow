@@ -15,7 +15,7 @@ const bookSchema = new Schema(
         pageCount: { type: Number, required: true },
 		genre: { type: String, required: true },
 		description: {type: String, required: true},
-		// img: {type: ImageObject, required: true},
+		cover: {type: String, required: true},
 		ibsn: { type: String, required: true },
 		},
 		

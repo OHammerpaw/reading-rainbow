@@ -99,26 +99,26 @@ router.get('/mine', (req, res) => {
 
 // new route -> GET route that renders our page with the form
 
-router.get('/new', (req, res) => {
-	const { username, userId, loggedIn } = req.session
-	res.render('books/new', { username, loggedIn, userId })
-})
+// router.get('/new', (req, res) => {
+// 	const { username, userId, loggedIn } = req.session
+// 	res.render('books/new', { username, loggedIn, userId })
+// })
 
 // create -> POST route that actually calls the db and makes a new document
 
-router.post('/', (req, res) => {
+// router.post("/", (req, res) => {
 	
-	req.body.owner = req.session.userId
-	Book.create(req.body)
-		.then(book => {
-			const { username, userId, loggedIn } = req.session
-			// console.log('this was returned from create', book)
-			res.redirect('/books')
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+// 	req.body.owner = req.session.userId
+// 	Book.create(req.body)
+// 		.then(book => {
+// 			const { username, userId, loggedIn } = req.session
+// 			// console.log('this was returned from create', book)
+// 			res.redirect('/books')
+// 		})
+// 		.catch(err => {
+// 			res.redirect(`/error?error=${err}`)
+// 		})
+// })
 
 // edit route -> GET that takes us to the edit form view
 

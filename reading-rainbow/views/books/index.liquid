@@ -5,16 +5,15 @@
     <div class="row">
       {% for book in books %}
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src= {{ book.img }} alt="image of book cover">
+            {%- comment -%} <img class="card-img-top" src= {{ book.img }} alt="image of book cover"> {%- endcomment -%}
           <h5 class="card-header">{{ book.title }}
           </h5>
           <h4>{{ book.subtitle }}
           </h4>
-          <h3 class="card-title">
-              {{ book.authors }}
-            </h3>
+           <h5 class="card-title">
+              {{ book.authors }}</h5>
           <div class="card-body">
-            <img class="img-fluid" src= {{ book.img }} >
+            <img class="img-fluid" src= {{ book.cover }} >
             <a href="/books/{{ book.id }}" class="btn btn-info">
               View
             </a>
