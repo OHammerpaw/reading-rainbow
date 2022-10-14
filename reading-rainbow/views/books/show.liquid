@@ -3,7 +3,7 @@
 <div class="container-md">
     <article>
         <div class="card" id="show-book" >
-            <img src="{{ book.cover }}" class="card-img-top" alt="book cover" id="show-cover">
+                <img src="{{ book.cover }}" class="card-img-top" alt="book cover" style="height: 450px" id="show-cover">
             <div class="card-body" >
                 <h1 class="card-title"> {{book.title }} </h1>
                 <h2 class="card-text"> {{ book.subtitle }}</h2>
@@ -12,16 +12,15 @@
                 <h4 class="card-text"> {{book.genre}}</h4>
                 <p class="card-text"> {{ book.description }}</p>
                 <h8 class="card-text">IBSN: {{ book.ibsn }}</h8>
-            </div>
+                <form action="/auth/addbook/{{ book.id }}?_method=PUT" method="POST">
+                    <input class="form-control" type="text" name="libType" value="read"  hidden >
+                    <input class="btn btn-secondary" type="submit" value="Read">
+                </form>
+                <form action="/auth/addbook/{{ book.id }}?_method=PUT" method="POST">
+                    <input class="form-control" type="text" name="libType" value="toRead"  hidden >
+                    <input class="btn btn-secondary" type="submit" value="want to read">
+                </form>
         </div>
-        {% if book.owner == userId %}
-        <div class="btn-group">
-            <a href="/books/{{ book.id }}/edit" class="btn btn-primary">Edit</a>
-            <form action="/books/{{ book.id }}?_method=DELETE" method="POST">
-                <input type="submit" value="Delete" class="btn btn-danger">
-            </form>
-        </div>
-        {% endif %}
     </article>
     <hr>
         {% if loggedIn %}

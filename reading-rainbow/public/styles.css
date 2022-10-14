@@ -1,6 +1,6 @@
 #show-book {
     flex-direction: row;
-    /* align-items: center; */
+    align-items: center;
 }
 
 /* .card-title {

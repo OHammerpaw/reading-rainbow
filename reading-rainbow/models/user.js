@@ -1,6 +1,8 @@
 // import what I need
 const { Schema, model } = require('./connection.js')
 
+const Book = require('./book')
+
 // create the schema
 const UserSchema = new Schema(
 	{
@@ -12,11 +14,19 @@ const UserSchema = new Schema(
 		password: { 
 			type: String, 
 			required: true 
-		}
-	},
+		},
+		read: [{
+			type: Schema.Types.ObjectId,
+			ref: 'Book'
+		}],
+		toread: [{
+			type: Schema.Types.ObjectId,
+			ref: 'Book'
+		}]
+	}
 )
 
-// creat the model
+// create the model
 const User = model('User', UserSchema)
 
 // export the model

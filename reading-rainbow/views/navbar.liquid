@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <a href="/" class="navbar-brand">Reading Rainbow</a>
         {% if loggedIn %}
-        <a href="/books/mine" class="nav-link text-light">Hello {{ username }} </a>
+        <a href="/books" class="nav-link text-light">Hello {{ username }} </a>
         {% endif %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,8 @@
                 </form>
                 <a href="/books" class="nav-link text-light">View All</a>
                 {%- comment -%} <a href="/books/new" class="nav-link text-light">New</a> {%- endcomment -%}
-                <a href="/books/mine" class="nav-link text-light">My Shelves</a>
+                <a href="/books/read" class="nav-link text-light">My Read Books</a>
+                <a href="books/toread" class="nav-link text-light">Want to Read</a>
                 <a href="/auth/logout" class="nav-link text-light">Log Out</a>
             {% else %}
                 <a href="/auth/signup" class="nav-link text-light">Sign Up</a>

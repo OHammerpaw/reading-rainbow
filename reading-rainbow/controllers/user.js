@@ -42,6 +42,7 @@ router.post('/signup', async (req, res) => {
 router.get('/login', (req, res) => {
 	res.render('auth/login')
 })
+
 // post to send the login info(and create a session)
 router.post('/login', async (req, res) => {
 	// console.log('request object', req)
@@ -94,6 +95,83 @@ router.get('/logout', (req, res) => {
 		res.redirect('/')
 	})
 })
+
+
+//INDEX TO PUSH INDIVIDUAL USER'S BOOKS
+
+router.put('/addbook/:bookId', (req, res) => {
+    // destructure user info from req.session
+	const bookId = req.params.bookId
+	const libType = req.body.libType
+	const { username, userId, loggedIn } = req.session
+	console.log("request body", req.body)
+
+	// find user
+	User.findById(userId)
+
+		.then(user => {
+			if (libType == "read") {
+				user.read.push(bookId)
+				return user.save()
+			} else {
+				user.toread.push(bookId)
+				return user.save()
+			}
+			
+		}) 
+		.then(user => {
+			//
+			console.log("this is the user", user)
+			res.redirect('/')
+		})
+		.catch((error) => {
+			console.log('the error', error);
+			
+			res.redirect(`/error?error=${error}`)
+		})
+
+	//grab correct array 
+
+	// push book into user read/toread array
+
+	// save user
+
+	// redirect to correct page
+
+	// handle errors
+
+
+	
+
+})
+
+	
+	// Book.find({ owner: userId })
+	// .populate("reviews.author", "username")
+	// 	.then(books => {
+			
+	// 		res.render('books/index', { books, username, loggedIn })
+	// 	})
+	// 	.catch(error => {
+	// 		res.redirect(`/error?error=${error}`)
+	// 	})
+// })
+
+// router.get('/toread', (req, res) => {
+//     // destructure user info from req.session
+// 	const { username, userId, loggedIn } = req.session
+// 	Book.find({ owner: userId })
+// 	.populate("reviews.author", "username")
+// 		.then(books => {
+			
+// 			res.render('books/index', { books, username, loggedIn })
+// 		})
+// 		.catch(error => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
+// })
+
+
 
 // Export the Router
 module.exports = router
