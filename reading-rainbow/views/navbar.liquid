@@ -10,7 +10,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if loggedIn %}
-                <div class="dropdown">
+                {%- comment -%} <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Param
                 </a>
@@ -20,7 +20,7 @@
                     <a class="dropdown-item" href="/books/authors">authors</a>
                     <a class="dropdown-item" href="/books/genre">genre</a>
                 </div>
-                </div>
+                </div> {%- endcomment -%}
                 <form action="/books/?" method="POST">
                     {%- comment -%} <a href="/books"></a> {%- endcomment -%}
                     <div class=”search-box”>
@@ -36,7 +36,7 @@
                 <a href="/auth/signup" class="nav-link text-light">Sign Up</a>
                 <a href="/auth/login" class="nav-link text-light">Sign In</a>
             {% endif %}
-            <div class="dropdown">
+            {%- comment -%} <div class="dropdown">
   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Dropdown link
   </a>
@@ -46,7 +46,7 @@
     <a class="dropdown-item" href="#">Another action</a>
     <a class="dropdown-item" href="#">Something else here</a>
   </div>
-</div>
+</div> {%- endcomment -%}
         </div>
     </div>
 </nav>

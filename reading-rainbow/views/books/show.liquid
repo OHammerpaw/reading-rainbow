@@ -2,13 +2,18 @@
 {% block content %}
 <div class="container-md">
     <article>
-        <h1> {{book.title }} </h1>
-        <h2> {{ book.subtitle }}</h2>
-        <h3> {{ book.authors }}</h3>
-        <h4> {{book.pageCount}} pages </h4>
-        <h4> {{book.genre}}</h4>
-        <p> {{ book.description }}</p>
-        <h8>IBSN: {{ book.ibsn }}</h8>
+        <div class="card" id="show-book" >
+            <img src="{{ book.cover }}" class="card-img-top" alt="book cover" id="show-cover" >
+            <div class="card-body" >
+                <h1 class="card-title"> {{book.title }} </h1>
+                <h2 class="card-text"> {{ book.subtitle }}</h2>
+                <h3 class="card-text"> {{ book.authors }}</h3>
+                <h4 class="card-text"> {{book.pageCount}} pages </h4>
+                <h4 class="card-text"> {{book.genre}}</h4>
+                <p class="card-text"> {{ book.description }}</p>
+                <h8 class="card-text">IBSN: {{ book.ibsn }}</h8>
+            </div>
+        </div>
         {% if book.owner == userId %}
         <div class="btn-group">
             <a href="/books/{{ book.id }}/edit" class="btn btn-primary">Edit</a>
