@@ -4,6 +4,8 @@ const mongoose = require('./connection')
 // import user model for populate
 const User = require('./user')
 
+
+const reviewSchema = require('./review')
 // destructure the schema and model constructors from mongoose
 const { Schema, model } = mongoose
 
@@ -17,6 +19,11 @@ const bookSchema = new Schema(
 		description: {type: String, required: true},
 		cover: {type: String, required: true},
 		ibsn: { type: String, required: true },
+		owner: {
+			type: Schema.Types.ObjectId,
+			ref: 'User'
+		},
+		reviews: [reviewSchema]
 		},
 		
 	{ timestamps: true }

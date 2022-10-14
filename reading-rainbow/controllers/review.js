@@ -29,7 +29,7 @@ router.post('/:bookId', (req, res) => {
     .then(book => {
         book.reviews.push(req.body)
 
-        return fruit.save()
+        return book.save()
     })
     .then(book => {
         res.redirect(`/books/${book.id}`)
@@ -60,11 +60,11 @@ router.delete(`/delete/:bookId/:revId`, (req, res) => {
 
                 } else {
                     const err = `'you%20are%20not%20authorized%20for%20this%20action`
-                    res.redirect(`/error?error=${err}`)
+                    res.redirect(`/err?error=${err}`)
                 }
             } else {
                 const err = `'you%20are%20not%20authorized%20for%20this%20action`
-                res.redirect(`/error?error=${err}`)
+                res.redirect(`/err?error=${err}`)
             }
         }) 
         .catch(err => res.redirect(`/error?error=${err}`))

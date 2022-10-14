@@ -44,7 +44,7 @@
         {% if book.reviews.length > 0%}
             <div class="container-sm justify-content-center">
                 <div class="col-md-8 col-lg-6">
-                    {% for comment in book.reviews %}
+                    {% for review in book.reviews %}
                         {% render '../review.liquid', review: review, userId: userId, book: book %}
                     {% endfor %}
                 </div>

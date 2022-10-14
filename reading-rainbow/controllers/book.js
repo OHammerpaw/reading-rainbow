@@ -31,6 +31,7 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
 	
 	Book.find({})
+		.populate("reviews.author", "username")
 		.then(books => {
 			const username = req.session.username
 			const loggedIn = req.session.loggedIn
@@ -66,8 +67,11 @@ router.get('/', (req, res) => {
 // ROUTE TO SHOW RESULTS OF BOOK SEARCH
 
 router.post('/?', (req, res) => {
+	
 	console.log(req.body.book)
 	Book.find({title:{$eq: req.body.book}})
+	.populate("reviews.author", "username")
+		
 		.then(books => {
 			console.log(books)
 			const username = req.session.username
@@ -119,6 +123,7 @@ router.get('/mine', (req, res) => {
     // destructure user info from req.session
 	const { username, userId, loggedIn } = req.session
 	Book.find({ owner: userId })
+	.populate("reviews.author", "username")
 		.then(books => {
 			
 			res.render('books/index', { books, username, loggedIn })
@@ -193,8 +198,8 @@ router.get('/:id', (req, res) => {
 	const id = req.params.id
 	
 	Book.findById(id)
+	.populate("reviews.author", "username")
 
-	// .populate("review.author", "username")
 	.then(book => {
 		const { username, userId, loggedIn } = req.session
 		res.render('books/show', { book, username, loggedIn, userId })
