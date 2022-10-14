@@ -3,43 +3,43 @@
 <div class="container-sm">
     <form action="/books" method="POST">
         <fieldset>
-            <legend>Edit {{ book.volumeInfo.title }}</legend>
+            <legend>Edit {{ book.title }}</legend>
             <label class="form-label">Title: </label>
             <input 
                 type="text" 
                 name="title" 
-                placeholder="{{ book.volumeInfo.title }}"
-                value="{{ book.volumeInfo.title }}"
+                placeholder="{{ book.title }}"
+                value="{{ book.title }}"
                 class="form-control"
             >
               <label class="form-label">Subtitle: </label>
             <input 
                 type="text" 
                 name="subtitle" 
-                placeholder="{{ book.volumeInfo.subtitle }}"
-                value="{{ book.volumeInfo.subtitle }}"
+                placeholder="{{ book.subtitle }}"
+                value="{{ book.subtitle }}"
                 class="form-control"
             >
             <label class="form-label">Author(s):</label>
             <input 
                 type="text" 
                 name="authors" 
-                placeholder="{{ book.volumeInfo.authors }}" 
-                value="{{ book.volumeInfo.authors }}" 
+                placeholder="{{ book.authors }}" 
+                value="{{ book.authors }}" 
                 class="form-control"
             >
             <label class="form-label">Pages:</label>
             <input 
                 type="number" 
                 name="pageCount"
-                value="{{ book.volumeInfo.pageCount }}"
+                value="{{ book.pageCount }}"
                 class="form-control"
             >
             <label class="form-label">Description:</label>
             <input 
                 type="text" 
                 name="description" 
-                value="{{book.volumeInfo.description }}"
+                value="{{book.description }}"
                 class="form-control"
             >
              {%- comment -%} <label class="form-label">IBSN:</label>

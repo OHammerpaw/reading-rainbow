@@ -10,20 +10,43 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if loggedIn %}
-                <form>
+                <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Param
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="/books/title">title</a>
+                    <a class="dropdown-item" href="/books/authors">authors</a>
+                    <a class="dropdown-item" href="/books/genre">genre</a>
+                </div>
+                </div>
+                <form action="/books/?" method="POST">
+                    {%- comment -%} <a href="/books"></a> {%- endcomment -%}
                     <div class=”search-box”>
-                        <input type=”text” name="volumeInfo" id="volumeInfo" placeholder="Find a book">
+                        <input type=”text” name="book" id="bookSearch" placeholder="Find a book">
                         <button class=”search-btn” type=”submit”>Search</button>
                     </div>
                 </form>
                 <a href="/books" class="nav-link text-light">View All</a>
-                <a href="/books/new" class="nav-link text-light">New</a>
+                {%- comment -%} <a href="/books/new" class="nav-link text-light">New</a> {%- endcomment -%}
                 <a href="/books/mine" class="nav-link text-light">My Shelves</a>
                 <a href="/auth/logout" class="nav-link text-light">Log Out</a>
             {% else %}
                 <a href="/auth/signup" class="nav-link text-light">Sign Up</a>
                 <a href="/auth/login" class="nav-link text-light">Sign In</a>
             {% endif %}
+            <div class="dropdown">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown link
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
         </div>
     </div>
 </nav>

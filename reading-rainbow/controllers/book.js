@@ -65,20 +65,51 @@ router.get('/', (req, res) => {
 
 // ROUTE TO SHOW RESULTS OF BOOK SEARCH
 
-// router.get('/', (req, res) => {
-// 	// let searchTerm = document.getElementById('volumeInfo').value
+router.post('/?', (req, res) => {
+	console.log(req.body.book)
+	Book.find({title:{$eq: req.body.book}})
+		.then(books => {
+			console.log(books)
+			const username = req.session.username
+			const loggedIn = req.session.loggedIn
+			const userId = req.session.userId
 
-// 	axios(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}.json`)
+			res.redirect(`/books/${books[0]._id}`)
+		})
+		.catch(err => res.redirect(`/error?error=${err}`))
+})  
 
-// 		.then((res) => res.json())
-// 		.then(books => {
-// 			createBookCards(books)
-// 			filteredBooks = books
-// 		})
-// 		.catch(error => {
-// 			res.redirect(`/error?error=${error}`)
-// 		})
+// router.get('/result', async (req, res) => {
+// 	let book
+// } )
+
+// router.get('/?:title', (req, res, next) => {
+
+// 	const filters = req.query;
+// 	const filteredBooks = data.filter(title => {
+// 		let isValid = true;
+// 		for (key in filters) {
+// 			isValid = isValid && title[key] == filters[key];
+// 		}
+// 		return isValid;
+// 	})
+		
+
+	// let query = req.body.book
+
+	// 	Book.find({ query })
+
+
+	// 	.then((res) => res.json())
+	// 	.then(books => {
+	// 		createBookCards(books)
+	// 		filteredBooks = books
+	// 	})
+	// 	.catch(error => {
+	// 		res.redirect(`/error?error=${error}`)
+	// 	})
 // })
+
 // const bookSearch = document.getElementById('volumeInfo').value
 // let filteredBooks= []
 
