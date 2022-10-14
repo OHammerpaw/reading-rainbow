@@ -1,6 +1,7 @@
 // Import Dependencies
 const express = require('express')
 const Book = require('../models/book')
+const User = require('../models/user')
 
 
 // Create router
@@ -66,28 +67,45 @@ router.post('/?', (req, res) => {
 
 //INDEX TO SHOW INDIVIDUAL USER'S BOOKS
 
+router.get('/read', (req, res) => {
+
+	let books = []
+	const libType = req.body.libType
+	const bookId = req.params.id
+	const { username, userId, loggedIn } = req.session
+	User.findById(req.session.userId)
+	.then(user => {
+		user.read.forEach( bookId =>{
+			Book.findById(bookId)
+			.populate("reviews.author", "username")
+			.then( book => {
+				books.push(book)
+			})
+		})
+		res.render('books/index', {books, username, loggedIn, userId })
+	})
+	.catch(err => res.redirect(`/error?error=${err}`))
+	
+	// User.find({read:{req.session.userId}})
+
+})
 // router.get('/read', (req, res) => {
-//     // destructure user info from req.session
+
 // 	const { username, userId, loggedIn } = req.session
-// 	User.findByIdAndUpdate(
-
-// 	)
-
-
-
-	// Book.find({ owner: userId })
-	// .populate("reviews.author", "username")
-	// 	.then(books => {
+// 	console.log("this is the book array", user.read)
+// 	Book.find({read:req.body.libType})
+// 	.populate("reviews.author", "username")
+// 		.then(books => {
 			
-	// 		res.render('books/index', { books, username, loggedIn })
-	// 	})
-	// 	.catch(error => {
-	// 		res.redirect(`/error?error=${error}`)
-	// 	})
+// 			res.render('books/index', { books, username, loggedIn, userId })
+// 		})
+// 		.catch(error => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
 // })
 
 // router.get('/toread', (req, res) => {
-//     // destructure user info from req.session
+   
 // 	const { username, userId, loggedIn } = req.session
 // 	Book.find({ owner: userId })
 // 	.populate("reviews.author", "username")
