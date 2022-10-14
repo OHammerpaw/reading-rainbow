@@ -3,7 +3,7 @@
 <div class="container-md">
     <article>
         <div class="card" id="show-book" >
-            <img src="{{ book.cover }}" class="card-img-top" alt="book cover" id="show-cover" >
+            <img src="{{ book.cover }}" class="card-img-top" alt="book cover" id="show-cover">
             <div class="card-body" >
                 <h1 class="card-title"> {{book.title }} </h1>
                 <h2 class="card-text"> {{ book.subtitle }}</h2>
@@ -23,5 +23,34 @@
         </div>
         {% endif %}
     </article>
+    <hr>
+        {% if loggedIn %}
+            <div class="col-md-6">
+                <form action="/reviews/{{book.id}}" method="POST">
+                    <fieldset>
+                        <legend>Add Review</legend>
+                        <label class="form-label">review:</label>
+                        <input class="form-control mb-1" type="text" placeholder="enter your review..." name="review" required>
+                    </fieldset>
+                    <input class="btn btn-success" type="submit" value="add review">
+                </form>
+            </div>
+        {% else %}
+            <div class="col-md-6">
+                <small>If you'd like to leave a review, please log in...</small>
+            </div>
+        {% endif %}
+        <hr>
+        {% if book.reviews.length > 0%}
+            <div class="container-sm justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    {% for comment in book.reviews %}
+                        {% render '../review.liquid', review: review, userId: userId, book: book %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <small>no reviews yet...</small>
+        {% endif %}
 </div>
 {% endblock %}
