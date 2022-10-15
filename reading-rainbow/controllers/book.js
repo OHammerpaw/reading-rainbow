@@ -82,41 +82,30 @@ router.get('/read', (req, res) => {
 				books.push(book)
 			})
 		})
-		res.render('books/index', {books, username, loggedIn, userId })
+		res.render('books/read', {books, username, loggedIn, userId })
 	})
 	.catch(err => res.redirect(`/error?error=${err}`))
-	
-	// User.find({read:{req.session.userId}})
-
 })
-// router.get('/read', (req, res) => {
 
-// 	const { username, userId, loggedIn } = req.session
-// 	console.log("this is the book array", user.read)
-// 	Book.find({read:req.body.libType})
-// 	.populate("reviews.author", "username")
-// 		.then(books => {
-			
-// 			res.render('books/index', { books, username, loggedIn, userId })
-// 		})
-// 		.catch(error => {
-// 			res.redirect(`/error?error=${error}`)
-// 		})
-// })
+router.get('/toread', (req, res) => {
 
-// router.get('/toread', (req, res) => {
-   
-// 	const { username, userId, loggedIn } = req.session
-// 	Book.find({ owner: userId })
-// 	.populate("reviews.author", "username")
-// 		.then(books => {
-			
-// 			res.render('books/index', { books, username, loggedIn })
-// 		})
-// 		.catch(error => {
-// 			res.redirect(`/error?error=${error}`)
-// 		})
-// })
+	let books = []
+	const libType = req.body.libType
+	const bookId = req.params.id
+	const { username, userId, loggedIn } = req.session
+	User.findById(req.session.userId)
+	.then(user => {
+		user.toread.forEach( bookId =>{
+			Book.findById(bookId)
+			.populate("reviews.author", "username")
+			.then( book => {
+				books.push(book)
+			})
+		})
+		res.render('books/toread', {books, username, loggedIn, userId })
+	})
+	.catch(err => res.redirect(`/error?error=${err}`))
+})
 
 
 // edit route -> GET that takes us to the edit form view

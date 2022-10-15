@@ -1,0 +1,18 @@
+{% layout 'layout.liquid'%}
+{% block content %}
+  <div>
+    <h2 class="display-6">Read Books</h2>
+    <div class="row">
+      {% for book in books %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <img class="img-fluid" src= {{ book.cover }} alt="book cover">
+            <a href="/books/{{ book.id }}" class="btn btn-info">
+              View
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}}
