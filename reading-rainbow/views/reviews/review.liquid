@@ -6,9 +6,10 @@
                 <small>author: {{ review.author.username }}</small>
                 {% if review.author == userId %}
                     <div class="btn-group">
-                        <form action="/reviews/edit/{{book.id}}/{{review.id}}?_method=GET" method="POST">
+                        {%- comment -%} <form action="/reviews/edit/{{book.id}}/{{review.id}}?_method=GET" method="POST">
                             <input class="btn btn-primary" type="submit" value="Edit">
-                        </form>
+                        </form> {%- endcomment -%}
+                        <a class = "btn btn-primary" href="/reviews/edit/{{book.id}}/{{review.id}}"> Edit </a>
                         <form action="/reviews/delete/{{book.id}}/{{review.id}}?_method=DELETE" method="POST">
                             <input class="btn btn-danger" type="submit" value="Delete">
                         </form>

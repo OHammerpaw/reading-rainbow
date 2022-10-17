@@ -2,16 +2,16 @@
 {% block content %}
 
     <div class="container-sm">
-        <form action="/reviews/edit/{{book.id}}/{{review.id}}?_method=PUT" method="POST">
+        <form action="/reviews/{{book.id}}/{{theReview.id}}?_method=PUT" method="POST">
             <fieldset>
-                <legend>Edit {{review.review}}</legend>
+                <legend>Edit review</legend>
                 <label class="form-label">Review: </label>
                 <input
                     class="form-control"
                     type="text"
-                    name="name"
+                    name="review"
                     placeholder="enter review"
-                    value="{{ review.review }}"
+                    value="{{ theReview.review }}"
                 >
             </fieldset>
             <input

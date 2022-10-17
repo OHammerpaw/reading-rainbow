@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/error', (req, res) => {
+	console.log("these are the re.params", (req.params))
 	const error = req.query.error || 'This Page Does Not Exist'
     const { username, loggedIn, userId } = req.session
 	res.render('error.liquid', { error, username, loggedIn, userId })

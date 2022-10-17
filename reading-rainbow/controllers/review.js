@@ -13,63 +13,39 @@ const router = express.Router()
 // Routes
 ///////////////////////////////////////////
 
-//POST 
-// only logged in users can post reviews
-router.post('/:bookId', (req, res) => {
-    const bookId = req.params.bookId
 
-    if (req.session.loggedIn) {
-        req.body.author = req.session.userId
-    } else {
-        res.sendStatus(401)
-    }
+// //GET to show edit page
+// router.get("/edit/:bookId/:revId", (req, res) => {
+//     const revId = req.params.revId
+//     const bookId = req.params.bookId
 
-    Book.findById(bookId)
-
-    .then(book => {
-        book.reviews.push(req.body)
-
-        return book.save()
-    })
-    .then(book => {
-        res.redirect(`/books/${book.id}`)
-    })
-    .catch(err => res.redirect(`/error?error=${err}`))
-
-})
-
-//GET to show edit page
-router.get("/edit/:bookId/:revid", (req, res) => {
-    const revId = req.params.revId
-    const bookId = req.params.bookId
-
-    Book.findById(bookId)
-    . then(book => {
-        const theReview = book.reviews.id(revId)
-        res.render('reviews/edit')
-    })
-
-
-   
-   
-})
+//     Book.findById(bookId)
+//     . then(book => {
+//         const theReview = book.reviews.id(revId)
+//         res.render('reviews/edit')
+//     })
+// })
 
 //UPDATE
 // only the author of the comment can edit it
  router.get('/edit/:bookId/:revId', (req, res ) => {
-    const id = req.params.id
+    console.log('THE GET ROUTE')
+    
+    const { username, userId, loggedIn } = req.session
     const bookId = req.params.bookId
     const revId = req.params.revId
 
     Book.findById(bookId)
     .then(book => {
-        const theReview = book.reviews.id(revId)
+       
+        let theReview = book.reviews.find(o => o.id === revId);
         console.log('this is the review that was found', theReview)
 
         if (req.session.loggedIn) {
 
             if (theReview.author == req.session.userId) {
-                res.render('reviews/edit')
+                
+                res.render('reviews/edit', { book, theReview, username, loggedIn, userId })
                 
             } else {
                 const err = `'you%20are%20not%20authorized%20for%20this%20action`
@@ -80,19 +56,23 @@ router.get("/edit/:bookId/:revid", (req, res) => {
             res.redirect(`/err?error=${err}`)
         }
     }) 
-    // .then(() => {
-    //     res.redirect('/books/:id')
-    // })
+   
  })
 
- router.put('/edit/:bookId/:revId', (req, res) => {
-    const id = req.params.id
+ router.put('/:bookId/:revId', (req, res) => {
+    
     const bookId = req.params.bookId
     const revId = req.params.revId
-
-    Book.findByIdAndUpdate(bookId, req.body)
+    console.log("THE PUT ROUTE")
+    Book.findById(bookId)
     .then(book => {
-        res.redirect('/books/:id')
+        const index = book.reviews.findIndex(object => {
+            return object.id === revId;
+          });
+          book.reviews[index].review=req.body.review
+          book.save()
+        console.log(book.id)
+        res.redirect(`/books/${book.id}`)
     })
     .catch((error) => {
         const err = `'you%20are%20not%20authorized%20for%20this%20action`
@@ -131,6 +111,32 @@ router.delete(`/delete/:bookId/:revId`, (req, res) => {
             }
         }) 
         .catch(err => res.redirect(`/error?error=${err}`))
+})
+
+
+//POST 
+// only logged in users can post reviews
+router.post('/:bookId', (req, res) => {
+    const bookId = req.params.bookId
+
+    if (req.session.loggedIn) {
+        req.body.author = req.session.userId
+    } else {
+        res.sendStatus(401)
+    }
+
+    Book.findById(bookId)
+
+    .then(book => {
+        book.reviews.push(req.body)
+
+        return book.save()
+    })
+    .then(book => {
+        res.redirect(`/books/${book.id}`)
+    })
+    .catch(err => res.redirect(`/error?error=${err}`))
+
 })
 
 //////////////////////////////////////////
