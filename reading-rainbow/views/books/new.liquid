@@ -1,67 +1,75 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-<div class="container-sm">
-    <form action="/books/new" method="POST">
-        <fieldset>
-            <legend>Create New Book</legend>
-            <label class="form-label">Title: </label>
-            <input 
-                type="text" 
-                name="title" 
-                placeholder="enter book title"
-                value="{{ book.title }}"
-                class="form-control"
-            >
-            <label class="form-label">Subtitle:</label>
-            <input 
-                type="text" 
-                name="subtitle" 
-                placeholder="enter book subtitle" 
-                value="{{ book.subtitle }}"
-                class="form-control"
-            >
-            <label class="form-label">Author(s):</label>
-            <input 
-                type="text" 
-                name="authors"
-                placeholder="enter author(s)" 
-                value="{{ book.authors }}"
-                class="form-control"
-            >
-            <label class="form-label">Pages:</label>
-            <input 
-                type="number" 
-                name="pageCount" 
-                placeholder="enter page count"
-                value="{{ book.pageCount }}"
-                class="form-control"
-            >
-              <label class="form-label">Genre(s):</label>
-            <input 
-                type="text" 
-                name="genre"
-                placeholder="enter genre(s)" 
-                value="{{ book.genre }}"
-                class="form-control"
-            >
-            <label class="form-label">Description:</label>
-             <input 
-                type="text" 
-                name="description"
-                placeholder="enter book description" 
-                value="{{ book.description }}"
-                class="form-control"
-            >
-              {%- comment -%} <label class="form-label">IBSN:</label>
-             <input 
-                type="text" 
-                name="ibsn"
-                placeholder="enter book ibsn" 
-                value="{{ book.volumeInfo.ibsn }}"
-                class="form-control"
-            > {%- endcomment -%}
-        </fieldset>
-        <input type="submit" value="Create New Book" class="btn btn-success">
-    </form>
-</div>
+    <div class="container-sm">
+        <form action="/books" method="POST">
+            <fieldset>
+                <legend>Add New Book</legend>
+                <label class="form-label">Title: </label>
+                <input 
+                    type="text" 
+                    name="title" 
+                    placeholder="enter book title"
+                    value="{{ book.title }}"
+                    class="form-control"
+                >
+                <label class="form-label">Subtitle:</label>
+                <input 
+                    type="text" 
+                    name="subtitle" 
+                    placeholder="enter book subtitle" 
+                    value="{{ book.subtitle }}"
+                    class="form-control"
+                >
+                <label class="form-label">Author(s):</label>
+                <input 
+                    type="text" 
+                    name="authors"
+                    placeholder="enter author(s)" 
+                    value="{{ book.authors }}"
+                    class="form-control"
+                >
+                <label class="form-label">Pages:</label>
+                <input 
+                    type="number" 
+                    name="pageCount" 
+                    placeholder="enter page count"
+                    value="{{ book.pageCount }}"
+                    class="form-control"
+                >
+                <label class="form-label">Genre(s):</label>
+                <input 
+                    type="text" 
+                    name="genre"
+                    placeholder="enter genre(s)" 
+                    value="{{ book.genre }}"
+                    class="form-control"
+                >
+                <label class="form-label">Description:</label>
+                <input 
+                    type="text" 
+                    name="description"
+                    placeholder="enter book description" 
+                    value="{{ book.description }}"
+                    class="form-control"
+                >
+                <label class="form-label">Cover:</label>
+                <input 
+                    type="text" 
+                    name="description"
+                    placeholder="enter link to cover image" 
+                    value="{{ book.cover }}"
+                    class="form-control"
+                >
+                <label class="form-label">IBSN:</label>
+                <input 
+                    type="text" 
+                    name="ibsn"
+                    placeholder="enter book ibsn" 
+                    value="{{ book.ibsn }}"
+                    class="form-control"
+                > 
+            </fieldset>
+            <input type="submit" value="Create New Book" class="btn btn-success">
+        </form>
+    </div>
 {% endblock %}

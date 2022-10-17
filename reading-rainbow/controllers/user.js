@@ -129,48 +129,9 @@ router.put('/addbook/:bookId', (req, res) => {
 			
 			res.redirect(`/error?error=${error}`)
 		})
-
-	//grab correct array 
-
-	// push book into user read/toread array
-
-	// save user
-
-	// redirect to correct page
-
-	// handle errors
-
-
-	
-
 })
 
 
-	
-	// Book.find({ owner: userId })
-	// .populate("reviews.author", "username")
-	// 	.then(books => {
-			
-	// 		res.render('books/index', { books, username, loggedIn })
-	// 	})
-	// 	.catch(error => {
-	// 		res.redirect(`/error?error=${error}`)
-	// 	})
-// })
-
-// router.get('/toread', (req, res) => {
-//     // destructure user info from req.session
-// 	const { username, userId, loggedIn } = req.session
-// 	Book.find({ owner: userId })
-// 	.populate("reviews.author", "username")
-// 		.then(books => {
-			
-// 			res.render('books/index', { books, username, loggedIn })
-// 		})
-// 		.catch(error => {
-// 			res.redirect(`/error?error=${error}`)
-// 		})
-// })
 
 
 

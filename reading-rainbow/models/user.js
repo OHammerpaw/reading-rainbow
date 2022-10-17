@@ -17,10 +17,12 @@ const UserSchema = new Schema(
 		},
 		read: [{
 			type: Schema.Types.ObjectId,
+			unique: true,
 			ref: 'Book'
 		}],
 		toread: [{
 			type: Schema.Types.ObjectId,
+			unique: true,
 			ref: 'Book'
 		}]
 	}

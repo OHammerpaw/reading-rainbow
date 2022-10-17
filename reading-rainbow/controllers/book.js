@@ -82,6 +82,7 @@ router.get('/read', (req, res) => {
 				books.push(book)
 			})
 		})
+		
 		res.render('books/read', {books, username, loggedIn, userId })
 	})
 	.catch(err => res.redirect(`/error?error=${err}`))
@@ -158,6 +159,31 @@ router.get('/:id', (req, res) => {
 	})
 	.catch(err => res.redirect(`/error?error=${err}`))
 })
+
+
+//get route to render "new book" form
+
+router.get('/new', (req, res) => {
+	const { username, userId, loggedIn } = req.session
+
+	res.render('books/new', { username, loggedIn, userId })
+
+})
+
+// create route to add new books to db
+
+router. post('/', (req, res) => {
+	req.body.owner = req.session.userId
+
+	Book.create(req.body)
+		.then(book => {
+			const { username, userId, loggedIn } = req.session
+			res.redirect('/books/show')
+		})
+		.catch(err => res.redirect(`/error?error=${err}`))
+		
+})
+
 
 
 // delete route

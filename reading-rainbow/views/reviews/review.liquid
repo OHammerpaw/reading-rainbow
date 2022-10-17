@@ -1,0 +1,20 @@
+{% block content %}
+    <div class="card mb-4 shadow">
+        <div class="card-body">
+            <p>{{ review.review }}</p>
+            <div class="d-flex justify-content-between">
+                <small>author: {{ review.author.username }}</small>
+                {% if review.author == userId %}
+                    <div class="btn-group">
+                        <form action="/reviews/edit/{{book.id}}/{{review.id}}?_method=GET" method="POST">
+                            <input class="btn btn-primary" type="submit" value="Edit">
+                        </form>
+                        <form action="/reviews/delete/{{book.id}}/{{review.id}}?_method=DELETE" method="POST">
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                        </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

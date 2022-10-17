@@ -44,7 +44,7 @@
             <div class="container-sm justify-content-center">
                 <div class="col-md-8 col-lg-6">
                     {% for review in book.reviews %}
-                        {% render '../review.liquid', review: review, userId: userId, book: book %}
+                        {% render 'reviews/review.liquid', review: review, userId: userId, book: book %}
                     {% endfor %}
                 </div>
             </div>

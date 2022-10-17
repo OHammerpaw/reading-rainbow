@@ -38,6 +38,69 @@ router.post('/:bookId', (req, res) => {
 
 })
 
+//GET to show edit page
+router.get("/edit/:bookId/:revid", (req, res) => {
+    const revId = req.params.revId
+    const bookId = req.params.bookId
+
+    Book.findById(bookId)
+    . then(book => {
+        const theReview = book.reviews.id(revId)
+        res.render('reviews/edit')
+    })
+
+
+   
+   
+})
+
+//UPDATE
+// only the author of the comment can edit it
+ router.get('/edit/:bookId/:revId', (req, res ) => {
+    const id = req.params.id
+    const bookId = req.params.bookId
+    const revId = req.params.revId
+
+    Book.findById(bookId)
+    .then(book => {
+        const theReview = book.reviews.id(revId)
+        console.log('this is the review that was found', theReview)
+
+        if (req.session.loggedIn) {
+
+            if (theReview.author == req.session.userId) {
+                res.render('reviews/edit')
+                
+            } else {
+                const err = `'you%20are%20not%20authorized%20for%20this%20action`
+                res.redirect(`/err?error=${err}`)
+            }
+        } else {
+            const err = `'you%20are%20not%20authorized%20for%20this%20action`
+            res.redirect(`/err?error=${err}`)
+        }
+    }) 
+    // .then(() => {
+    //     res.redirect('/books/:id')
+    // })
+ })
+
+ router.put('/edit/:bookId/:revId', (req, res) => {
+    const id = req.params.id
+    const bookId = req.params.bookId
+    const revId = req.params.revId
+
+    Book.findByIdAndUpdate(bookId, req.body)
+    .then(book => {
+        res.redirect('/books/:id')
+    })
+    .catch((error) => {
+        const err = `'you%20are%20not%20authorized%20for%20this%20action`
+        res.redirect(`/err?error=${err}`)
+    })
+ })
+
+
 //DELETE
 // only the author of the comment can delete it
 router.delete(`/delete/:bookId/:revId`, (req, res) => {

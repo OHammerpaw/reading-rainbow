@@ -3,6 +3,16 @@
     align-items: center;
 }
 
+body {
+    background-color: rgb(222, 233,236);
+}
+
+.card {
+    margin: 5px;
+   
+
+}
+
 /* .card-title {
     font-weight: bold;
 }

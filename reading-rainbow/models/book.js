@@ -19,6 +19,10 @@ const bookSchema = new Schema(
 		description: {type: String, required: true},
 		cover: {type: String, required: true},
 		ibsn: { type: String, required: true },
+		owner: {
+			type: Schema.Types.ObjectId,
+			ref: 'User'
+		},
 		reviews: [reviewSchema]
 		},
 		
