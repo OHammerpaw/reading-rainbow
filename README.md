@@ -12,10 +12,8 @@ TECHNOLOGIES USED
   -Express
   -Liquid
   -Mongoose
-  -API (Open Library)
-    - (https://openlibrary.org/books/)
 
-OR
+
 
 ```const BookSchema = new Schema({
     title: String,
