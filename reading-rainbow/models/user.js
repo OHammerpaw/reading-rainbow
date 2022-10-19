@@ -1,15 +1,15 @@
 // import what I need
 const { Schema, model } = require('./connection.js')
 
-const Book = require('./book')
+const Book = require('./book') // unused import, we don't need the model to use refs 
 
 // create the schema
 const UserSchema = new Schema(
 	{
-		username: { 
+		username: {
 			type: String, 
 			required: true, 
-			unique: true 
+			unique: true // nice use of the options here
 		},
 		password: { 
 			type: String, 
@@ -20,7 +20,7 @@ const UserSchema = new Schema(
 			unique: true,
 			ref: 'Book'
 		}],
-		toread: [{
+		toread: [{// should be camel case
 			type: Schema.Types.ObjectId,
 			unique: true,
 			ref: 'Book'

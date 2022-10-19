@@ -32,7 +32,7 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
 	
 	Book.find({})
-		.populate("reviews.author", "username")
+		.populate("reviews.author", "username") // good use of populate
 		.then(books => {
 			const username = req.session.username
 			const loggedIn = req.session.loggedIn
@@ -70,14 +70,14 @@ router.post('/?', (req, res) => {
 router.get('/read', (req, res) => {
 
 	let books = []
-	const libType = req.body.libType
+	const libType = req.body.libType // unused variables
 	const bookId = req.params.id
 	const { username, userId, loggedIn } = req.session
 	User.findById(req.session.userId)
 	.then(user => {
-		user.read.forEach( bookId =>{
+		user.read.forEach( bookId =>{ // NICE - this logic tends to be hard to parse out : well done. I suggest trying Array.map in the future to make it just a little more dry 
 			Book.findById(bookId)
-			.populate("reviews.author", "username")
+			.populate("reviews.author", "username")// yay populate
 			.then( book => {
 				books.push(book)
 			})
@@ -87,11 +87,11 @@ router.get('/read', (req, res) => {
 	})
 	.catch(err => res.redirect(`/error?error=${err}`))
 })
-
-router.get('/toread', (req, res) => {
+// missing descriptive comment, also consider camel case
+router.get('/toread', (req, res) => {// nice consistent styling of whitespace and good indentation throughout 
 
 	let books = []
-	const libType = req.body.libType
+	const libType = req.body.libType// unused variables
 	const bookId = req.params.id
 	const { username, userId, loggedIn } = req.session
 	User.findById(req.session.userId)
@@ -126,20 +126,20 @@ router.get('/edit/:id', (req, res) => {
 })
 
 // update route
-router.put('/:id', (req, res) => {
-	const id = req.params.id
+router.put('/:id', (req, res) => {// looks like we haven't implemented this route yet so i wont comment on any mistakes here yet beyond pointing out some potential things to look at to help out
+	const id = req.params.id //< --a
 	
 
-	Book.findByIdAndUpdate(bookId, req.body, { new: true })
+	Book.findByIdAndUpdate(bookId, req.body, { new: true }) //< -- a & b
 		.then(book => {
 			if (book.owner == req.session.userId) {
-				return book.updateone(req.body)
+				return book.updateone(req.body) //<-- b 
 			} else {
 				res.sendStatus(401)
 			}
 		})
-		.then(() => {
-			res.redirect(`/books/${book.id}`)
+		.then(() => {// <-- c
+			res.redirect(`/books/${book.id}`)// <-- c
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)
@@ -164,7 +164,7 @@ router.get('/:id', (req, res) => {
 //get route to render "new book" form
 
 router.get('/new', (req, res) => {
-	const { username, userId, loggedIn } = req.session
+	const { username, userId, loggedIn } = req.session // nice use of destructuring syntax
 
 	res.render('books/new', { username, loggedIn, userId })
 

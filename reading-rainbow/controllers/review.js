@@ -28,7 +28,7 @@ const router = express.Router()
 
 //UPDATE
 // only the author of the comment can edit it
- router.get('/edit/:bookId/:revId', (req, res ) => {
+ router.get('/edit/:bookId/:revId', (req, res ) => { //<--
     console.log('THE GET ROUTE')
     
     const { username, userId, loggedIn } = req.session
@@ -36,30 +36,30 @@ const router = express.Router()
     const revId = req.params.revId
 
     Book.findById(bookId)
-    .then(book => {
-       
-        let theReview = book.reviews.find(o => o.id === revId);
+    .then(book => {// bad indentation here
+       // there is a subdocument method built in called .id we can use here that may help. o is a bad variable name 
+        let theReview = book.reviews.find(o => o.id === revId);// o.id will likely never be === to revId because they are different types, use loose equality here ( Type id and Type string can have the same value but are not ===)
         console.log('this is the review that was found', theReview)
 
-        if (req.session.loggedIn) {
+        if (req.session.loggedIn) { // consolidate as errors are the same using &&
 
             if (theReview.author == req.session.userId) {
                 
                 res.render('reviews/edit', { book, theReview, username, loggedIn, userId })
                 
             } else {
-                const err = `'you%20are%20not%20authorized%20for%20this%20action`
+                const err = `'you%20are%20not%20authorized%20for%20this%20action'`
                 res.redirect(`/err?error=${err}`)
             }
         } else {
-            const err = `'you%20are%20not%20authorized%20for%20this%20action`
+            const err = `'you%20are%20not%20authorized%20for%20this%20action'`
             res.redirect(`/err?error=${err}`)
         }
     }) 
-   
- })
-
- router.put('/:bookId/:revId', (req, res) => {
+    // no catch ?
+ })// <--
+// be mindful of your indentation - we have some sneaky spaces in here, i like to use indent rainbow plug in to make indentation easier to see with color coding ( highlights these in red )
+ router.put('/:bookId/:revId', (req, res) => {// < --
     
     const bookId = req.params.bookId
     const revId = req.params.revId
@@ -68,9 +68,9 @@ const router = express.Router()
     .then(book => {
         const index = book.reviews.findIndex(object => {
             return object.id === revId;
-          });
-          book.reviews[index].review=req.body.review
-          book.save()
+          });// < -- also, we fortunately don't need semi colons in modern js
+          book.reviews[index].review=req.body.review// <--
+          book.save()// < -- 
         console.log(book.id)
         res.redirect(`/books/${book.id}`)
     })
@@ -78,7 +78,7 @@ const router = express.Router()
         const err = `'you%20are%20not%20authorized%20for%20this%20action`
         res.redirect(`/err?error=${err}`)
     })
- })
+ })// < --
 
 
 //DELETE
@@ -90,12 +90,12 @@ router.delete(`/delete/:bookId/:revId`, (req, res) => {
 
     Book.findById(bookId)
         .then(book => {
-            const theReview = book.reviews.id(revId)
+            const theReview = book.reviews.id(revId)// good use of the id method here ( i mentioned it above !)
             console.log('this is the review that was found', theReview)
 
             if (req.session.loggedIn) {
 
-                if (theReview.author == req.session.userId) {
+                if (theReview.author == req.session.userId) { // this block returns the same error as the previous condition, consolidate to 1 if with && 
 
                     theReview.remove()
                     book.save()
@@ -126,13 +126,13 @@ router.post('/:bookId', (req, res) => {
     }
 
     Book.findById(bookId)
-
-    .then(book => {
+    // don't put white space between our db calls and chained promise functions 
+    .then(book => {// mind our indentation here
         book.reviews.push(req.body)
 
         return book.save()
     })
-    .then(book => {
+    .then(book => {// mind our indentation here
         res.redirect(`/books/${book.id}`)
     })
     .catch(err => res.redirect(`/error?error=${err}`))
@@ -143,4 +143,3 @@ router.post('/:bookId', (req, res) => {
 // Export the Router
 //////////////////////////////////////////
 module.exports = router
-

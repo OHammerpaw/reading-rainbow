@@ -2,14 +2,14 @@
 const mongoose = require('./connection')
 
 // import user model for populate
-const User = require('./user')
+const User = require('./user') // unused import 
 
 
 const reviewSchema = require('./review')
 // destructure the schema and model constructors from mongoose
 const { Schema, model } = mongoose
 
-const bookSchema = new Schema(
+const bookSchema = new Schema(// we always capitalize classes in JS / by extension also our model Schemas
 	{
 		title: { type: String, required: true },
 		subtitle: {type: String},
@@ -19,7 +19,7 @@ const bookSchema = new Schema(
 		description: {type: String, required: true},
 		cover: {type: String, required: true},
 		ibsn: { type: String, required: true },
-		owner: {
+		owner: { // unsure if it should be required or not 
 			type: Schema.Types.ObjectId,
 			ref: 'User'
 		},
@@ -43,7 +43,7 @@ const bookSchema = new Schema(
 // 	}
 // )
 
-const Book = model('Book', bookSchema)
+const Book = model('Book', bookSchema) 
 
 /////////////////////////////////
 // Export our Model
