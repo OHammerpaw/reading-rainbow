@@ -1,4 +1,4 @@
-# reading-rainbow
+# Reading Rainbow
 
 OVERVIEW
 ------------------
@@ -59,16 +59,18 @@ As a user I want:
   - to be able to search for books
   - to be able to add book to my shelves (Want to Read, Read)
   - be able to look at shelves one by one
-  - be able to view my progress towards reading goal 
-  - be able to mark a book as owned
-  -  beable to filter shelves by owned books
+  - *be able to view my progress towards reading goal 
+  - *be able to mark a book as owned
+  - *beable to filter shelves by owned books
   - be able to view book info
   - be able to leave a review/comments about read books
   - be able to edit or delete their own review/comment
-  - be able to remove book from their shelves
+  - *be able to remove book from their shelves
   - view other users reviews of books
-  - make a reading goal
-  - track progress on reading goal
+  - *make a reading goal
+  - *track progress on reading goal
+
+  (*Under Construction)
 
 WIREFRAMES
 ----------------
