@@ -87,12 +87,8 @@ ERDs
 ![image](https://user-images.githubusercontent.com/112446901/194789546-a5aa63a6-e5c5-4552-ae69-f14204389da5.png)
 ![image](https://user-images.githubusercontent.com/112446901/194790163-696dc3e4-2c78-4d97-9592-85a43e554c2a.png)
 
-SCHEDULE
-------------------
-  - Monday: get approval, download boilerplate, edit boilerplate and add schemas for reviews
-  - Tuesday: build bones of routes, refer back to projects
-  - Wednesday: polish routes, fix whatever routes aren't working
-  - Thursday: work on liquid view
-  - Friday: work on liquid view
 
+Link to Live Site
+----------------
 
+(https://readingrainbow.fly.dev/auth/login)
