@@ -87,6 +87,14 @@ ERDs
 ![image](https://user-images.githubusercontent.com/112446901/194789546-a5aa63a6-e5c5-4552-ae69-f14204389da5.png)
 ![image](https://user-images.githubusercontent.com/112446901/194790163-696dc3e4-2c78-4d97-9592-85a43e554c2a.png)
 
+Grows
+----------------
+ - Currently when viewing read and want to read book shelves, the books do not consistently render on page. Sometimes They all show up, sometimes only one, sometimes none.
+ - Users can currently add the same book to a shelf multiple times
+ - Users can currently have a book on both their read shelf and their want to read shelf
+ - Reading goal tracking has not yet been implemented
+ - Marking a book as owned has yet to be implemented
+
 
 Link to Live Site
 ----------------
